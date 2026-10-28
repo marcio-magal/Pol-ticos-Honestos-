@@ -1,0 +1,6 @@
+{
+  "name": "Políticos \"Honestos\"",
+  "description": "Plataforma cívica e neutra para pesquisa da atuação de deputados federais e senadores brasileiros com dados abertos oficiais.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
