@@ -154,8 +154,27 @@ Para testar a versão de produção localmente:
 npm run preview
 ```
 
-### Hospedagem Gratuita (Vercel ou Netlify)
-Por ser uma aplicação Single Page Application (SPA) em React estático com Vite, o projeto pode ser publicado diretamente na [Vercel](https://vercel.com) ou na [Netlify](https://netlify.com) sem custos de infraestrutura nem necessidade de servidor backend próprio.
+### 6.1. Implantação no GitHub Pages (via GitHub Actions)
+
+O projeto já está configurado com o workflow oficial do GitHub Actions em `.github/workflows/deploy.yml` e com o parâmetro `base: './'` no `vite.config.ts`, permitindo que os artefatos estáticos (JS, CSS, fontes e ícones) sejam carregados com caminhos relativos em qualquer repositório.
+
+#### Como ativar no repositório do GitHub:
+
+1. **Acessar as configurações do repositório:**
+   - No GitHub, vá na aba **Settings** do seu repositório.
+   - No menu lateral esquerdo, clique em **Pages** (dentro da seção *Code and automation*).
+2. **Definir a fonte para GitHub Actions:**
+   - Em **Build and deployment** > **Source**, selecione a opção **GitHub Actions** (em vez de *Deploy from a branch*).
+3. **Executar a publicação:**
+   - Qualquer `push` realizado na branch `main` disparará automaticamente o fluxo de compilação e deploy.
+   - Você também pode acionar manualmente a qualquer momento na aba **Actions** > selecionar o workflow **Deploy to GitHub Pages** > clicar em **Run workflow**.
+4. **Acessar a aplicação:**
+   - Assim que o job for concluído (aproximadamente 1 minuto), a URL pública será exibida em **Settings > Pages** e na aba **Actions** (exemplo: `https://<seu-usuario>.github.io/<nome-do-repositorio>/`).
+5. **Roteamento resiliente (Hash Router):**
+   - Como o sistema de navegação da plataforma utiliza hash (`#politico-...`), os links diretos e o recarregamento de página (F5) funcionam nativamente sem a necessidade de regras complexas de redirecionamento 404 de servidores convencionais.
+
+### 6.2. Hospedagem Alternativa Gratuita (Vercel ou Netlify)
+Por ser uma Single Page Application (SPA) em React estático com Vite que acessa APIs com suporte a CORS diretamente do navegador, o projeto também pode ser importado com 1 clique na [Vercel](https://vercel.com) ou na [Netlify](https://netlify.com) sem custos de servidor backend.
 
 ---
 
@@ -163,10 +182,13 @@ Por ser uma aplicação Single Page Application (SPA) em React estático com Vit
 
 ```
 politicos-honestos/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml                   # Workflow automatizado para deploy no GitHub Pages
 ├── index.html                           # Ponto de entrada HTML com metatags cívicas
 ├── metadata.json                        # Metadados da aplicação
 ├── package.json                         # Dependências e scripts npm
-├── vite.config.ts                       # Configuração do Vite e Tailwind
+├── vite.config.ts                       # Configuração do Vite (base: './') e Tailwind
 ├── src/
 │   ├── main.tsx                         # Ponto de entrada React DOM
 │   ├── App.tsx                          # Orquestrador de rotas e navegação
